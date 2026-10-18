@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Oracle Cloud | รายงานวิชาเทคโนโลยีการประมวลผลคลาวด์</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600&family=Prompt:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+<style>
+:root{
+  --ora-red:#C9553A; --ora-red-dark:#8E2F1E; --ora-ink:#2a1210; --ora-sand:#301410; --bg:#26100e; --surface:#361a15; --text:#f5ebe4; --aqua-l:#F4B183; --aqua:#E8803F; --coral:#E9B44C;
+  --ora-stone:#5e2f25; --ora-muted:#cdb0a2; --ora-teal:#8DAA7E;
+  --head:'Prompt','IBM Plex Sans Thai',sans-serif;
+  --bs-body-font-family:'IBM Plex Sans Thai',system-ui,sans-serif;
+  --bs-body-color:var(--text);--bs-body-bg:var(--bg);
+  --lift:inset 0 1px 0 rgba(255,255,255,.07),0 20px 38px -14px rgba(0,0,0,.7);
+}
+html{color-scheme:dark;scroll-behavior:smooth;scroll-padding-top:76px}
+body{background:var(--bg);color:var(--text);font-size:1.05rem;line-height:1.85}
+h1,h2,h3,h4,h5{font-family:var(--head);font-weight:700;letter-spacing:-.01em;line-height:1.35}
+.navbar{background:rgba(30,12,10,.94);backdrop-filter:blur(6px);box-shadow:0 6px 20px rgba(0,0,0,.25)}
+.navbar-brand{font-family:var(--head);font-weight:700;font-size:1.3rem}
+.navbar .nav-link{color:#e9e5e1;font-size:.95rem;font-weight:500}
+.navbar .nav-link:hover,.navbar .nav-link:focus{color:#fff;text-decoration:underline;text-decoration-color:var(--aqua);text-decoration-thickness:3px;text-underline-offset:8px}
+.brand-mark{display:inline-block;width:38px;height:20px;border:5px solid var(--aqua);border-radius:12px;vertical-align:middle;margin-right:.6rem}
+
+.hero{color:#fff;padding:5.5rem 0 9rem;position:relative;overflow:hidden;
+  background:radial-gradient(700px 420px at 88% 18%,rgba(232,128,63,.28),transparent 65%),linear-gradient(165deg,#7d2b1c 0%,#3a1510 55%,#220d0b 100%)}
+.hero .container{position:relative;z-index:2}
+.hero::before{display:none}
+.hero::after{content:"";position:absolute;left:0;right:0;bottom:-1px;background-repeat:no-repeat;background-size:100% 100%;pointer-events:none}
+.hero::before{height:150px;z-index:1;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 120' preserveAspectRatio='none'%3E%3Cpath fill='%23E8803F' fill-opacity='.35' d='M0,40 C220,0 420,100 720,60 C1000,20 1200,10 1440,70 L1440,120 L0,120 Z'/%3E%3C/svg%3E")}
+.hero::after{height:105px;z-index:1;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 120' preserveAspectRatio='none'%3E%3Cpath fill='%2326100e' d='M0,64 C240,120 480,0 720,48 C960,96 1200,110 1440,50 L1440,120 L0,120 Z'/%3E%3C/svg%3E")}
+.hero h1{font-size:clamp(2.6rem,6.2vw,4.8rem);font-weight:800;line-height:1.12;margin-bottom:1.2rem;text-shadow:0 6px 28px rgba(0,0,0,.4)}
+.hero .kicker{color:#F4B183;font-weight:500;font-size:1.1rem}
+.hero p.lead{max-width:34rem;color:#f0d9cc;font-size:1.2rem}
+.btn-ora{background:var(--aqua);border:0;color:#2a0f0b;font-family:var(--head);font-weight:600;box-shadow:0 6px 0 #B25A1F,0 14px 24px rgba(0,0,0,.3);transition:transform .15s,box-shadow .15s}
+.btn-ora:hover{color:#2a0f0b;transform:translateY(3px);box-shadow:0 3px 0 #B25A1F,0 8px 16px rgba(0,0,0,.3)}
+.btn-ghost{font-family:var(--head);font-weight:600;border:2px solid #fff;color:#fff}
+.btn-ghost:hover{background:var(--surface);color:var(--ora-ink)}
+
+.stack{position:relative;height:360px;perspective:1100px}
+.stack .layer{position:absolute;width:82%;padding:1.2rem 1.4rem;border-radius:.8rem;transform:rotateY(-16deg) rotateX(6deg);transform-origin:left center}
+.stack .layer h3{font-size:1.2rem;margin:0 0 .15rem;color:inherit}
+.stack .layer p{margin:0;font-size:.9rem;line-height:1.5;opacity:.9}
+.stack .l1{top:0;left:0;background:linear-gradient(145deg,#DE6A4B,#A63B27);color:#fff;box-shadow:0 30px 50px -10px rgba(0,0,0,.55);z-index:1}
+.stack .l2{top:105px;left:9%;background:linear-gradient(145deg,#7a2f22,#5a2218);color:#fff;box-shadow:0 30px 50px -10px rgba(0,0,0,.55);z-index:2}
+.stack .l3{top:210px;left:18%;background:linear-gradient(145deg,#F09A52,#C96A2A);color:#fff;box-shadow:0 30px 50px -10px rgba(0,0,0,.6);z-index:3}
+
+section{padding:5rem 0;background:radial-gradient(800px 320px at 50% 0%,rgba(201,85,58,.14),transparent 70%),var(--bg)}
+section.alt{background:radial-gradient(600px 300px at 8% 0%,rgba(232,128,63,.2),transparent 70%),radial-gradient(700px 400px at 100% 100%,rgba(201,85,58,.16),transparent 70%),var(--ora-sand);box-shadow:inset 0 14px 20px -16px rgba(0,0,0,.5),inset 0 -14px 20px -16px rgba(0,0,0,.5)}
+.sec-head{display:flex;align-items:center;gap:1.1rem;padding-bottom:1rem;margin-bottom:1.4rem;border-bottom:3px solid rgba(232,128,63,.45)}
+.sec-icon{flex:none;width:60px;height:60px;display:grid;place-items:center;background:linear-gradient(145deg,#DE6A4B,#A63B27);color:#fff;font-size:1.7rem;border-radius:.7rem;box-shadow:0 12px 24px -6px rgba(201,85,58,.55)}
+.sec-title{font-size:clamp(1.9rem,4.2vw,2.8rem);font-weight:800;margin:0}
+.lead-text{max-width:48rem;color:var(--ora-muted);font-size:1.12rem}
+
+.pillar{border:1px solid var(--ora-stone);background:var(--surface);border-radius:.7rem;border-left:6px solid var(--ora-red);padding:1.4rem 1.3rem;height:100%;box-shadow:var(--lift)}
+.pillar h3{font-size:1.15rem;margin-bottom:.5rem}
+.svc{border:1px solid var(--ora-stone);background:var(--surface);border-top:5px solid var(--ora-red);border-radius:.7rem;padding:1.4rem;height:100%;box-shadow:var(--lift);transition:transform .2s,box-shadow .2s}
+.svc:hover{transform:translateY(-6px);border-color:rgba(232,128,63,.5);box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 28px 44px -14px rgba(0,0,0,.8)}
+.svc .abbr{font-family:var(--head);font-weight:800;font-size:1.8rem;color:var(--aqua-l);line-height:1.25}
+.svc .full{font-size:.88rem;color:var(--ora-muted);margin-bottom:.7rem}
+.svc p{font-size:.97rem;margin:0}
+.chip{display:inline-block;background:rgba(232,128,63,.12);border:1px solid rgba(232,128,63,.35);border-radius:2rem;padding:.05rem .7rem;font-size:.82rem;margin:.2rem .1rem 0 0}
+
+.hier{display:flex;gap:1.6rem;flex-wrap:wrap}
+.hier>div{flex:1 1 200px;border:2px solid var(--c);border-radius:.7rem;padding:1.2rem 1.3rem;background:var(--surface);box-shadow:var(--lift)}
+.hier>div:nth-child(1){--c:#b8836f}
+.hier>div:nth-child(2){--c:var(--ora-red)}
+.hier>div:nth-child(3){--c:var(--ora-teal)}
+.hier h3{font-size:1.25rem}
+.table-responsive{border-radius:.7rem;box-shadow:var(--lift);background:var(--surface);border:1px solid var(--ora-stone);overflow:hidden}
+.table{--bs-table-bg:transparent;--bs-table-color:var(--text);--bs-table-hover-bg:rgba(232,128,63,.09);--bs-table-hover-color:#fff;--bs-table-border-color:var(--ora-stone);margin-bottom:0}
+.table thead th{background:linear-gradient(145deg,#C9553A,#8E2F1E);color:#fff;font-family:var(--head);font-weight:600;border:0;padding:.9rem 1rem}
+.table td{padding:.85rem 1rem;color:#fbf1ea;background-color:transparent;border-color:var(--ora-stone)}
+.table td.fw-bold{color:#F4B183}
+.table tbody tr:nth-child(even) td{background-color:rgba(255,255,255,.04)}
+.side-title{font-size:1.35rem;margin-bottom:1rem}
+
+.plan-free{background:linear-gradient(150deg,#DE6A4B,#8E2F1E);color:#fff;border-radius:.8rem;padding:1.8rem;height:100%;box-shadow:0 22px 40px -14px rgba(0,0,0,.7)}
+.plan-free h3{font-size:1.7rem}
+.pro-box,.con-box{border:1px solid var(--ora-stone);border-radius:.8rem;padding:1.8rem;height:100%;background:var(--surface);box-shadow:var(--lift)}
+.pro-box{border-top:7px solid var(--ora-teal)}
+.con-box{border-top:7px solid var(--coral)}
+.pro-box h3,.con-box h3{font-size:1.5rem}
+.pro-box li,.con-box li{margin-bottom:.7rem}
+.estimate-box{border:1px solid var(--ora-stone);background:var(--surface);border-radius:.8rem;box-shadow:var(--lift);padding:1.8rem;margin-top:2rem}
+.estimate li{margin-bottom:.4rem}
+
+.steps{position:relative;padding-left:2.4rem;border-left:5px solid var(--aqua);margin-left:.7rem}
+.step{position:relative;border:1px solid var(--ora-stone);background:var(--surface);border-radius:.8rem;padding:1.4rem 1.6rem;margin-bottom:1.8rem;box-shadow:var(--lift)}
+.step::before{content:"";position:absolute;left:-3.55rem;top:1.7rem;width:22px;height:22px;background:var(--bg);border:6px solid var(--aqua);border-radius:50%;box-shadow:0 0 0 5px var(--ora-sand)}
+.step h3{font-size:1.35rem}
+.badge-free{background:var(--ora-teal)}
+.badge-paid{background:#7a3a2c}
+
+.sumcard{border:1px solid var(--ora-stone);background:var(--surface);border-radius:.8rem;border-top:6px solid var(--ora-red);padding:1.5rem;height:100%;box-shadow:var(--lift)}
+.sumcard h3{font-size:1.25rem}
+
+footer{background:radial-gradient(600px 300px at 90% 0%,rgba(232,128,63,.18),transparent 70%),linear-gradient(180deg,#34150f,#1e0a08);color:#dcc2b6;padding:4rem 0 2rem;border-top:8px solid var(--aqua)}
+footer h2{color:#fff;font-size:1.6rem;font-weight:800}
+footer a{color:#F4B183}
+.refs a{word-break:break-all}
+.text-ocean{color:var(--aqua-l)!important}
+a:focus-visible,.btn:focus-visible{outline:3px solid var(--ora-red);outline-offset:3px}
+@media (max-width:991px){.stack{display:none}.hero{padding-bottom:6rem}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.svc,.btn-ora{transition:none}}
+</style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+  <div class="container">
+    <a class="navbar-brand fw-bold" href="#top"><span class="brand-mark" aria-hidden="true"></span>Oracle Cloud</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav" aria-controls="nav" aria-expanded="false" aria-label="เปิดเมนู"><span class="navbar-toggler-icon"></span></button>
+    <div class="collapse navbar-collapse" id="nav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="#intro">ความรู้เบื้องต้น</a></li>
+        <li class="nav-item"><a class="nav-link" href="#services">บริการหลัก</a></li>
+        <li class="nav-item"><a class="nav-link" href="#datacenter">ศูนย์ข้อมูล</a></li>
+        <li class="nav-item"><a class="nav-link" href="#pricing">ค่าบริการ</a></li>
+        <li class="nav-item"><a class="nav-link" href="#proscons">ข้อดี/ข้อเสีย</a></li>
+        <li class="nav-item"><a class="nav-link" href="#cert">ใบรับรอง</a></li>
+        <li class="nav-item"><a class="nav-link" href="#team">ผู้จัดทำ</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="container">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-7">
+        <p class="mb-2 kicker">รายงานวิชาเทคโนโลยีการประมวลผลคลาวด์ (0904327)</p>
+        <h1>Oracle Cloud Infrastructure</h1>
+        <p class="lead">รวมบริการหลัก ที่ตั้งศูนย์ข้อมูล รูปแบบค่าบริการ ข้อดีข้อเสีย และเส้นทางใบรับรองของ OCI ไว้ในหน้าเดียว</p>
+        <a href="#services" class="btn btn-ora btn-lg px-4 mt-2">ดูบริการทั้ง 11 กลุ่ม</a>
+        <a href="#team" class="btn btn-ghost btn-lg px-4 mt-2 ms-2">ผู้จัดทำรายงาน</a>
+      </div>
+      <div class="col-lg-5">
+        <div class="stack" aria-hidden="true">
+          <div class="layer l1"><h3>Region</h3><p>พื้นที่ทางภูมิศาสตร์ของโครงสร้างพื้นฐาน</p></div>
+          <div class="layer l2"><h3>Availability Domain</h3><p>ศูนย์ข้อมูลที่แยกจากกันภายใน Region</p></div>
+          <div class="layer l3"><h3>Fault Domain</h3><p>กลุ่มฮาร์ดแวร์ที่แยกความเสี่ยง 3 กลุ่มต่อ AD</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+<section id="intro">
+  <div class="container">
+    <div class="sec-head"><span class="sec-icon" aria-hidden="true"><i class="bi bi-cloud-fill"></i></span><h2 class="sec-title">ความรู้เบื้องต้นเกี่ยวกับ OCI</h2></div>
+    <p class="lead-text mb-4">Oracle Cloud Infrastructure (OCI) คือแพลตฟอร์มคลาวด์ของ Oracle ที่เติบโตมาจากความเชี่ยวชาญด้านฐานข้อมูลองค์กร ออกแบบเป็นคลาวด์รุ่นที่สอง รองรับงานประสิทธิภาพสูง (HPC) และงาน AI</p>
+    <div class="row g-4">
+      <div class="col-md-6 col-lg-3"><div class="pillar"><h3>เครือข่ายความหน่วงต่ำ</h3><p class="mb-0 small">โครงสร้างเครือข่ายแบบ Flat Network แบนด์วิดท์สูง รองรับฐานข้อมูลขนาดใหญ่ระดับวิกฤต</p></div></div>
+      <div class="col-md-6 col-lg-3"><div class="pillar"><h3>ปลอดภัยตั้งแต่การออกแบบ</h3><p class="mb-0 small">แยก Control Plane ออกจาก Data Plane และเข้ารหัสข้อมูลทั้งขณะจัดเก็บและขณะส่งผ่านเครือข่าย</p></div></div>
+      <div class="col-md-6 col-lg-3"><div class="pillar"><h3>จ่ายตามการใช้งานจริง</h3><p class="mb-0 small">Pay-as-you-go ราคาโปร่งใสและเป็นมาตรฐานเดียวกันทั่วโลก ปรับขนาดทรัพยากรได้ตามความต้องการ</p></div></div>
+      <div class="col-md-6 col-lg-3"><div class="pillar"><h3>บริการอัตโนมัติ</h3><p class="mb-0 small">Autonomous Database และ Autonomous Linux ปรับแต่งและอัปเดตแพตช์เองแบบไม่ต้องหยุดระบบ</p></div></div>
+    </div>
+    <p class="mt-4 mb-0 lead-text">OCI ยังทำงานร่วมกับคลาวด์รายอื่นได้ ผ่าน Oracle AI Database@AWS, @Azure และ @Google Cloud</p>
+  </div>
+</section>
+
+<section id="services" class="alt">
+  <div class="container">
+    <div class="sec-head"><span class="sec-icon" aria-hidden="true"><i class="bi bi-grid-3x3-gap-fill"></i></span><h2 class="sec-title">บริการหลัก 11 กลุ่ม</h2></div>
+    <p class="lead-text mb-4">IaaS ผู้ใช้ดูแลตั้งแต่ระบบปฏิบัติการขึ้นไป ส่วน PaaS ผู้ใช้ดูแลเฉพาะแอปและข้อมูล ผู้ให้บริการดูแลชั้นที่เหลือ</p>
+    <div class="row g-3">
+      <div class="col-md-6 col-lg-4"><div class="svc"><div class="abbr">IaaS</div><div class="full">Infrastructure as a Service</div><p>เช่าเครื่องเสมือน (Compute) เครือข่ายเสมือน และพื้นที่เก็บข้อมูลโดยไม่ต้องซื้อเซิร์ฟเวอร์เอง รวมถึง Block Volume</p></div></div>
+      <div class="col-md-6 col-lg-4"><div class="svc"><div class="abbr">CaaS</div><div class="full">Container as a Service</div><p>Container Engine for Kubernetes (OKE) ที่ Oracle ดูแลให้ พร้อม Container Instances และ Container Registry</p></div></div>
+      <div class="col-md-6 col-lg-4"><div class="svc"><div class="abbr">PaaS</div><div class="full">Platform as a Service</div><p>Integration Services, API Platform และ Analytics Services ให้นักพัฒนาโฟกัสที่แอป ไม่ต้องดูแลระบบปฏิบัติการหรือฮาร์ดแวร์</p></div></div>
+      <div class="col-md-6 col-lg-4"><div class="svc"><div class="abbr">FaaS</div><div class="full">Function as a Service</div><p>OCI Functions แพลตฟอร์ม serverless เขียนโค้ดเป็นฟังก์ชันเล็ก ๆ แล้วระบบรันเมื่อมีเหตุการณ์มาเรียกใช้</p></div></div>
+      <div class="col-md-6 col-lg-4"><div class="svc"><div class="abbr">DaaS</div><div class="full">Database as a Service</div><p>จุดแข็งที่สุดของ Oracle</p>
+        <span class="chip">Autonomous Database</span><span class="chip">Base Database</span><span class="chip">Exadata</span><span class="chip">PostgreSQL</span><span class="chip">NoSQL</span></div></div>
+      <div class="col-md-6 col-lg-4"><div class="svc"><div class="abbr">Security &amp; Identity</div><div class="full">ความปลอดภัยและอัตลักษณ์ผู้ใช้</div><p>โมเดลความรับผิดชอบร่วมกัน ใช้ IAM กำหนดสิทธิ์เข้าถึง แนะนำเปิด WAF บน Load Balancer เพื่อป้องกันเว็บแอป</p></div></div>
+      <div class="col-md-6 col-lg-4"><div class="svc"><div class="abbr">IoT</div><div class="full">Internet of Things</div><p>เชื่อมอุปกรณ์และเซนเซอร์เข้าเครือข่าย เช่น วัดอุณหภูมิห้องเซิร์ฟเวอร์แล้วแจ้งเตือนเมื่อเกินค่าที่กำหนด</p></div></div>
+      <div class="col-md-6 col-lg-4"><div class="svc"><div class="abbr">STaaS</div><div class="full">Storage as a Service</div><p>Object Storage, File Storage, Block Volume และ Archive Storage ที่ต้นทุนราวหนึ่งในสิบของ Object Storage</p></div></div>
+      <div class="col-md-6 col-lg-4"><div class="svc"><div class="abbr">Big Data &amp; Analytics</div><div class="full">วิเคราะห์ข้อมูลขนาดใหญ่</div><p>Analytics Services, AI Data Platform, Autonomous Data Warehouse และ Integration Services สำหรับทำ ETL</p></div></div>
+      <div class="col-md-6 col-lg-4"><div class="svc"><div class="abbr">BCaaS</div><div class="full">Blockchain as a Service</div><p>Oracle Blockchain Platform ให้หลายองค์กรบันทึกธุรกรรมร่วมกันโดยไม่มีศูนย์กลางเดียว เช่น ห่วงโซ่อุปทานและการเงิน</p></div></div>
+      <div class="col-md-6 col-lg-4"><div class="svc"><div class="abbr">LBaaS</div><div class="full">Load Balancer as a Service</div><p>Load Balancer (Layer 4 และ 7) และ Network Load Balancer กระจายทราฟฟิกไปหลายเซิร์ฟเวอร์</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="datacenter">
+  <div class="container">
+    <div class="sec-head"><span class="sec-icon" aria-hidden="true"><i class="bi bi-geo-alt-fill"></i></span><h2 class="sec-title">ที่ตั้งศูนย์ข้อมูล</h2></div>
+    <p class="lead-text mb-4">Oracle แบ่งพื้นที่ให้บริการเป็น Region และภายในมี Availability Domain กับ Fault Domain เพื่อให้ระบบทนต่อความขัดข้อง</p>
+    <div class="hier mb-5">
+      <div><h3 class="h5" style="font-family:var(--head)">Region</h3><p class="small mb-0">พื้นที่ทางภูมิศาสตร์ที่ตั้งโครงสร้างพื้นฐาน เลือกตามที่ตั้งผู้ใช้ กฎหมายข้อมูล และบริการที่ต้องการ</p></div>
+      <div><h3 class="h5" style="font-family:var(--head)">Availability Domain</h3><p class="small mb-0">ศูนย์ข้อมูลภายใน Region ที่แยกจากกัน จำนวนต่างกันในแต่ละ Region</p></div>
+      <div><h3 class="h5" style="font-family:var(--head)">Fault Domain</h3><p class="small mb-0">กลุ่มฮาร์ดแวร์ใน AD ใช้แยกทรัพยากร โดย 1 AD มี Fault Domain 3 กลุ่ม</p></div>
+    </div>
+    <div class="row g-4">
+      <div class="col-lg-7">
+        <div class="table-responsive">
+          <table class="table table-hover align-middle">
+            <thead><tr><th>ประเทศ</th><th>ตัวอย่าง Region</th><th>เหมาะกับ</th></tr></thead>
+            <tbody>
+              <tr><td>ไทย</td><td>Thailand Central (Bangkok)</td><td>ผู้ใช้ในประเทศไทย หากบริการที่ต้องการรองรับ Region นี้</td></tr>
+              <tr><td>สิงคโปร์</td><td>Singapore</td><td>ระบบที่ให้บริการในเอเชียตะวันออกเฉียงใต้</td></tr>
+              <tr><td>ญี่ปุ่น</td><td>Japan East (Tokyo)</td><td>ผู้ใช้ในญี่ปุ่นและพื้นที่ใกล้เคียง</td></tr>
+              <tr><td>เกาหลีใต้</td><td>South Korea Central (Seoul)</td><td>ผู้ใช้ในเกาหลีใต้</td></tr>
+              <tr><td>ออสเตรเลีย</td><td>Australia East</td><td>ผู้ใช้ในออสเตรเลีย</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="col-lg-5">
+        <h3 class="side-title">เลือก Region อย่างไร</h3>
+        <ul class="list-unstyled">
+          <li class="mb-2"><i class="bi bi-speedometer2 text-ocean me-2"></i><strong>ความเร็ว</strong> เลือกใกล้ผู้ใช้เพื่อลดความหน่วง</li>
+          <li class="mb-2"><i class="bi bi-shield-check text-ocean me-2"></i><strong>กฎหมาย</strong> ตรวจข้อกำหนดที่ตั้งและความเป็นส่วนตัว</li>
+          <li class="mb-2"><i class="bi bi-check2-circle text-ocean me-2"></i><strong>ความพร้อมใช้งาน</strong> บริการที่ต้องการมีใน Region นั้นหรือไม่</li>
+          <li class="mb-2"><i class="bi bi-arrow-repeat text-ocean me-2"></i><strong>สำรองและกู้คืน</strong> วางแผนข้าม Fault Domain หรือ Region</li>
+          <li><i class="bi bi-cash-coin text-ocean me-2"></i><strong>ค่าใช้จ่าย</strong> ราคาทรัพยากร การรับส่งข้อมูล และการสำรอง</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="pricing" class="alt">
+  <div class="container">
+    <div class="sec-head"><span class="sec-icon" aria-hidden="true"><i class="bi bi-cash-stack"></i></span><h2 class="sec-title">รูปแบบการคิดค่าบริการ</h2></div>
+    <div class="row g-4 mt-1">
+      <div class="col-lg-7">
+        <div class="table-responsive">
+          <table class="table align-middle mb-0">
+            <thead><tr><th>รูปแบบ</th><th>รายละเอียด</th><th>เหมาะกับ</th></tr></thead>
+            <tbody>
+              <tr><td class="fw-bold">Pay As You Go</td><td>จ่ายตามทรัพยากรที่ใช้จริง ไม่ต้องทำสัญญาผูกมัดระยะยาว</td><td>ผู้เริ่มต้น ธุรกิจที่ใช้งานไม่แน่นอน</td></tr>
+              <tr><td class="fw-bold">Annual Commitment / Flex</td><td>ซื้อเครดิตหรือผูกข้อตกลง อาจได้ส่วนลด</td><td>องค์กรที่คาดการณ์การใช้งานได้</td></tr>
+              <tr><td class="fw-bold">Free Tier</td><td>ทรัพยากรบางรายการใช้ฟรีตามเงื่อนไข</td><td>นักศึกษา ผู้ทดลองใช้ ผู้พัฒนารายเล็ก</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <h3 class="side-title mt-4">ปัจจัยที่มีผลต่อค่าใช้จ่าย</h3>
+        <p class="mb-0"><span class="chip">Compute: OCPU หน่วยความจำ เวลา</span><span class="chip">Database: ประเภทและขนาด</span><span class="chip">Storage: ชนิดและปริมาณ</span><span class="chip">Network: การรับส่งข้อมูล</span></p>
+      </div>
+      <div class="col-lg-5">
+        <div class="plan-free">
+          <h3 class="h4" style="font-family:var(--head)">Free Tier</h3>
+          <p class="mb-3"><strong>Free Trial</strong> เครดิตทดลอง 300 ดอลลาร์สหรัฐ นานสูงสุด 30 วัน ขึ้นกับประเทศและเงื่อนไขการสมัคร</p>
+          <p class="mb-3"><strong>Always Free</strong> ทรัพยากรบางรายการใช้ต่อเนื่องโดยไม่เสียค่าใช้จ่าย เช่น เครื่องเสมือน ฐานข้อมูล พื้นที่เก็บข้อมูล และเครือข่ายบางประเภท</p>
+          <p class="mb-0 small">ไม่ใช่ทุกบริการหรือทุกขนาดที่ใช้ฟรีได้</p>
+        </div>
+      </div>
+    </div>
+    <div class="estimate-box">
+      <h3 class="h5" style="font-family:var(--head)">ตัวอย่าง: มหาวิทยาลัยสร้างเว็บไซต์ให้บริการข้อมูล</h3>
+      <p class="small text-secondary">ประเมินจากทรัพยากรทั้งหมด ไม่ควรสรุปจากค่าเครื่องเสมือนเพียงรายการเดียว</p>
+      <ol class="estimate mb-0">
+        <li>กำหนดจำนวนเครื่องและขนาดทรัพยากร</li>
+        <li>เลือกประเภทฐานข้อมูลและพื้นที่จัดเก็บ</li>
+        <li>ประเมินปริมาณการรับส่งข้อมูล</li>
+        <li>ตรวจสิทธิ์ Free Tier ที่ตรงกับทรัพยากรนั้น</li>
+        <li>คำนวณด้วยเครื่องมือ Oracle Cloud Cost Estimator</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section id="proscons">
+  <div class="container">
+    <div class="sec-head"><span class="sec-icon" aria-hidden="true"><i class="bi bi-hand-thumbs-up-fill"></i></span><h2 class="sec-title">ข้อดีและข้อเสีย</h2></div>
+    <div class="row g-4 mt-1">
+      <div class="col-lg-6">
+        <div class="pro-box shadow-sm">
+          <h3 class="h5 mb-3" style="font-family:var(--head)"><i class="bi bi-hand-thumbs-up-fill me-2" style="color:var(--ora-teal)"></i>ข้อดี</h3>
+          <ul class="mb-0">
+            <li><strong>ฐานข้อมูลแข็งแกร่ง</strong> Autonomous Database และ Exadata หลายรูปแบบ</li>
+            <li><strong>รองรับ multicloud</strong> ใช้ฐานข้อมูล Oracle ใน AWS, Azure, Google Cloud</li>
+            <li><strong>มีของฟรีให้ทดลอง</strong> ทั้งเครดิตทดลองและ Always Free</li>
+            <li><strong>จ่ายยืดหยุ่น</strong> Universal Credits ใช้ข้ามบริการและข้าม region</li>
+            <li><strong>รองรับข้อกำหนดทางกฎหมาย</strong> มี region สำหรับรัฐบาลและ sovereign region</li>
+            <li><strong>เรียนฟรี</strong> หลักสูตรและใบรับรองระดับ Foundations และ Architect Associate</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="con-box shadow-sm">
+          <h3 class="h5 mb-3" style="font-family:var(--head)"><i class="bi bi-exclamation-triangle-fill me-2" style="color:var(--coral)"></i>ข้อเสีย</h3>
+          <ul class="mb-0">
+            <li>จำนวน region และบริการโดยรวมน้อยกว่า AWS, Azure, GCP</li>
+            <li>ชุมชนผู้ใช้ ตัวอย่างโค้ด และบุคลากรที่มีทักษะ OCI มีน้อยกว่า</li>
+            <li>Universal Credits มียอดผูกมัดรายปี ต้องประเมินการใช้งานล่วงหน้า และเครดิตที่เหลือสูญเสียไป</li>
+            <li>Always Free จำกัดเฉพาะ home region และไม่รองรับ US Government Cloud region</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="cert" class="alt">
+  <div class="container">
+    <div class="sec-head"><span class="sec-icon" aria-hidden="true"><i class="bi bi-patch-check-fill"></i></span><h2 class="sec-title">เส้นทางใบรับรอง (Certification Path)</h2></div>
+    <p class="lead-text mb-5">Oracle University ปรับหลักสูตรปี 2026 เป็น 5 สายหลัก ได้แก่ OCI, Multicloud, AI, Agentic AI และ Database</p>
+    <div class="steps">
+      <div class="step">
+        <h3>ขั้นที่ 1 OCI Foundations Associate <span class="badge badge-free ms-2">ฟรี</span></h3>
+        <p class="mb-0">ระดับเริ่มต้น เนื้อหาเชิงแนวคิด ไม่ต้องมีประสบการณ์ลงมือทำ เหมาะกับนักศึกษา ผู้เปลี่ยนสายงาน และฝ่ายขายหรือไอที ข้อสอบรุ่น 2026 รหัส 1Z0-1085-26 แบ่งเป็น 4 หัวข้อ หัวข้อบริการหลักของ OCI สัดส่วน 50% รุ่นเดิมรหัส 1Z0-1085-25 ถูกยกเลิกเมื่อ 15 มิถุนายน 2026</p>
+      </div>
+      <div class="step">
+        <h3>ขั้นที่ 2 OCI Architect Associate <span class="badge badge-free ms-2">ฟรี</span></h3>
+        <p class="mb-0">เรียนรู้บริการหลัก เช่น Identity, Networking, Compute และ Storage ปัจจุบันเปิดให้เรียนและสอบฟรี ต่อยอดไปสาย Architect, Developer, Security, Networking และ Generative AI ได้</p>
+      </div>
+      <div class="step">
+        <h3>ขั้นที่ 3 Professional และสายเฉพาะทาง <span class="badge badge-paid ms-2">เสียเงิน</span></h3>
+        <p class="mb-0">ตัวอย่างเช่น OCI Enterprise AI Professional (สร้างและดูแล AI agent ระดับองค์กร) และ Oracle AI Database@AWS/Azure/Google Cloud Architect Professional Oracle ระบุแผนเปิด Multicloud Foundations ในเดือนกันยายน 2026 และ Exadata Database Service ระดับ Professional ในเดือนตุลาคม 2026</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="summary">
+  <div class="container">
+    <div class="sec-head"><span class="sec-icon" aria-hidden="true"><i class="bi bi-journal-check"></i></span><h2 class="sec-title">สรุปผลการศึกษา</h2></div>
+    <div class="row g-4 mt-1">
+      <div class="col-lg-4"><div class="sumcard"><h3 class="h5" style="font-family:var(--head)">บริการและที่ตั้ง</h3><p class="small mb-0">OCI ครอบคลุมการประมวลผล การจัดเก็บข้อมูล การพัฒนาแอป ความปลอดภัย และการวิเคราะห์ข้อมูล มีศูนย์ข้อมูลหลายภูมิภาคให้เลือกตามความต้องการ</p></div></div>
+      <div class="col-lg-4"><div class="sumcard"><h3 class="h5" style="font-family:var(--head)">ค่าใช้จ่ายและข้อจำกัด</h3><p class="small mb-0">ค่าบริการยืดหยุ่นตามชนิดและปริมาณการใช้งาน ควรตรวจรายละเอียดก่อนใช้ ข้อจำกัดคือความรู้ทางเทคนิค การบริหารความปลอดภัย และการควบคุมค่าใช้จ่าย</p></div></div>
+      <div class="col-lg-4"><div class="sumcard"><h3 class="h5" style="font-family:var(--head)">ประโยชน์ต่อผู้เรียน</h3><p class="small mb-0">เส้นทางใบรับรองช่วยพัฒนาทักษะคลาวด์อย่างเป็นระบบ เป็นประโยชน์ต่อการศึกษาต่อและการทำงานในอนาคต</p></div></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer id="team">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-lg-6">
+        <h2>คณะผู้จัดทำ</h2>
+        <ul class="list-unstyled mb-0">
+          <li>นางสาวกิติยา วงษา · 67010918013</li>
+          <li>นางสาวปิยพร แสนโยธา · 67010918066</li>
+          <li>นางสาววราภรณ์ เลิศจรัสกุลถาวร · 67010918071</li>
+          <li>นางสาวกันติยา ยี่สุ่น · 67010918076</li>
+          <li>นางสาวพรรนิชา เปศรี · 67010918101</li>
+        </ul>
+      </div>
+      <div class="col-lg-6">
+        <h2>เสนอ</h2>
+        <p class="mb-1">อาจารย์อิทธิพล เอี่ยมภูงา</p>
+        <p class="mb-0 small">วิชาเทคโนโลยีการประมวลผลคลาวด์ รหัสวิชา 0904327 ภาคเรียนที่ 1 ปีการศึกษา 2569<br>คณะการบัญชีและการจัดการ สาขาธุรกิจดิจิทัลและระบบสารสนเทศ มหาวิทยาลัยมหาสารคาม</p>
+      </div>
+    </div>
+    <hr class="my-4" style="border-color:#5e2f25">
+    <h2 class="h6">อ้างอิง</h2>
+    <ul class="small refs mb-0">
+      <li><a href="https://www.oracle.com/cloud/" target="_blank" rel="noopener">oracle.com/cloud</a></li>
+      <li><a href="https://www.oracle.com/asean/big-data/" target="_blank" rel="noopener">oracle.com/asean/big-data</a></li>
+      <li><a href="https://docs.oracle.com/cloud/help/th/analytics-cloud/ACUBI/GUID-551F1F84-DF2F-4484-A5B7-E4F3153E9B6F.htm" target="_blank" rel="noopener">Oracle Analytics Cloud Documentation</a></li>
+      <li><a href="https://feeder.co/th/discover/7cb68354e5/blogs-oracle-com-cloud-infrastructure" target="_blank" rel="noopener">blogs.oracle.com cloud-infrastructure</a></li>
+      <li><a href="https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=10489415" target="_blank" rel="noopener">IEEE Xplore 10489415</a>, <a href="https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=6008786" target="_blank" rel="noopener">6008786</a>, <a href="https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=10754774" target="_blank" rel="noopener">10754774</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
